@@ -1,0 +1,30 @@
+
+steps:
+  # Step 1: Build the backend Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/recipe-app/recipe-backend'
+      - './backend'
+
+  # Step 2: Push image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/recipe-app/recipe-backend'
+
+  # Step 3: Deploy backend to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'recipe-backend'
+      - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/recipe-app/recipe-backend'
+      - '--region=us-central1'
+      - '--allow-unauthenticated'
+      - '--port=5000'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
