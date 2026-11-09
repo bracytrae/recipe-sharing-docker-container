@@ -81,7 +81,7 @@ app.delete('/api/recipes/:id', (req, res) => {
       res.status(404).json({ error: 'Recipe not found' });
       return;
     }
-    res.json({ message: 'Recipe deleted successfully' });
+    res.status(204).send();
   });
 });
 
@@ -94,7 +94,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Recipe API server running on port ${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/api/health`);
-});
+if (require.main === module) {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Recipe API server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
