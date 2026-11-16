@@ -28,7 +28,7 @@ describe('Recipe Sharing App Tests', () => {
     render(<App />);
 
     expect(
-      screen.getByText('Incorrect Application Title')
+      screen.getByText('🍳 Recipe Sharing App')
     ).toBeInTheDocument();
   });
 
