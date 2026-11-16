@@ -70,6 +70,15 @@ jobs:
       - name: Set up Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v3
 
+      - name: Diagnose Google Cloud permissions
+        run: |
+          echo "Authenticated account:"
+          gcloud auth list --filter="status:ACTIVE" --format="value(account)"
+          echo "Configured project:"
+          gcloud config get-value project
+          echo "Checking bucket access:"
+          gcloud storage ls gs://recipe-sharing-app-cloud_cloudbuild
+
       - name: Build and deploy backend
         run: gcloud builds submit --project='${{ secrets.GCP_PROJECT_ID }}' --config=cloudbuild-backend.yaml .
 
