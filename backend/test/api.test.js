@@ -4,6 +4,19 @@ const app = require('../server');
 
 describe('Recipe API Tests', () => {
 
+  beforeAll(async () => {
+    await request(app)
+      .post('/api/recipes')
+      .send({
+        name: 'CI Test Recipe',
+        ingredients: 'Flour',
+        instructions: 'Mix and bake',
+        cookTime: '15 minutes'
+      })
+      .expect(201);
+  });
+
+
   describe('GET /api/recipes', () => {
     test('should return all recipes', async () => {
       const response = await request(app)
