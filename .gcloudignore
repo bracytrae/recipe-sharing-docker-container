@@ -1,0 +1,10 @@
+.git/
+.github/
+**/node_modules/
+**/.env
+**/.env.*
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+gha-creds-*.json
+**/gha-creds-*.json
