@@ -80,7 +80,7 @@ jobs:
           gcloud storage ls gs://recipe-sharing-app-cloud_cloudbuild
 
       - name: Build and deploy backend
-        run: gcloud builds submit --project='${{ secrets.GCP_PROJECT_ID }}' --config=cloudbuild-backend.yaml .
+        run: gcloud builds submit --region=us-central1 --gcs-source-staging-dir=gs://recipe-sharing-app-cloud_cloudbuild/source --project='${{ secrets.GCP_PROJECT_ID }}' --config=cloudbuild-backend.yaml .
 
       - name: Build and deploy frontend
-        run: gcloud builds submit --project='${{ secrets.GCP_PROJECT_ID }}' --config=cloudbuild-frontend.yaml .
+        run: gcloud builds submit --region=us-central1 --gcs-source-staging-dir=gs://recipe-sharing-app-cloud_cloudbuild/source --project='${{ secrets.GCP_PROJECT_ID }}' --config=cloudbuild-frontend.yaml .
